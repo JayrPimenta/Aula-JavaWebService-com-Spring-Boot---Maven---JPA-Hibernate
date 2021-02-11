@@ -8,9 +8,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+import com.javawebservice.curso.entidades.Categoria;
 import com.javawebservice.curso.entidades.Pedido;
 import com.javawebservice.curso.entidades.Usuario;
 import com.javawebservice.curso.entidades.enums.PedidoStatus;
+import com.javawebservice.curso.repositories.CategoriaRepository;
 import com.javawebservice.curso.repositories.PedidoRepository;
 import com.javawebservice.curso.repositories.UsuarioRepository;
 
@@ -28,9 +30,16 @@ public class TesteConfig implements CommandLineRunner{
 	
 	@Autowired
 	private PedidoRepository pedidoRepository;
+	
+	@Autowired
+	private CategoriaRepository categoriaRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
+		
+		Categoria categoria1 = new Categoria(null, "Eletronicos");
+		Categoria categoria2 = new Categoria(null, "Livros");
+		Categoria categoria3 = new Categoria(null, "Computadores");
 		
 		Usuario usuario1 = new Usuario(null, "Bob", "bob@hotmail.com", "955695656", "1212");
 		Usuario usuario2 = new Usuario(null, "Maria", "maria@uol.com.br", "958317578", "2525");
@@ -41,6 +50,7 @@ public class TesteConfig implements CommandLineRunner{
 		
 		usuarioRepository.saveAll(Arrays.asList(usuario1, usuario2));
 		pedidoRepository.saveAll(Arrays.asList(pedido1, pedido2, pedido3));
+		categoriaRepository.saveAll(Arrays.asList(categoria1, categoria2, categoria3));
 		
 //		Teste de erro: resolvido
 //		Arrays.asList(1, 2, 3, 4, 5).forEach(System.out::print);
