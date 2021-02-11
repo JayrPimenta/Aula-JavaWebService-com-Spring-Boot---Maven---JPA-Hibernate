@@ -11,28 +11,32 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.javawebservice.curso.entidades.enums.PedidoStatus;
 
 @Entity
 public class Pedido implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY) // Id Auto Incrementaval
 	private Long id;
 	
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT") // Transfrma data e hora que retorna do BD
 	private Instant instante;
 	
-	@ManyToOne
-	@JoinColumn(name = "Cliente_id")
+	private Integer pedidoStatus;
+	
+	@ManyToOne // Estabelece relação no banco de dados relacional entre tabelas
+	@JoinColumn(name = "Cliente_id") // Cria um SQL JOIN na tabela da classe
 	private Usuario cliente;
 	
 	public Pedido() {
 	}
 
-	public Pedido(Long id, Instant instante, Usuario cliente) {
+	public Pedido(Long id, Instant instante, PedidoStatus pedidoStatus, Usuario cliente) {
 		this.id = id;
 		this.instante = instante;
+		setPedidoStatus(pedidoStatus);
 		this.cliente = cliente;
 	}
 
@@ -50,6 +54,16 @@ public class Pedido implements Serializable{
 
 	public void setInstante(Instant instante) {
 		this.instante = instante;
+	}
+
+	public PedidoStatus getPedidoStatus() {
+		return PedidoStatus.valorDe(pedidoStatus) ;
+	}
+
+	public void setPedidoStatus(PedidoStatus pedidoStatus) {
+		if (pedidoStatus != null) {
+			this.pedidoStatus = pedidoStatus.getCodigo();
+		}
 	}
 
 	public Usuario getcliente() {

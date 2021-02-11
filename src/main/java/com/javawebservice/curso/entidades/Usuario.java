@@ -17,15 +17,15 @@ public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY) // Id Auto Incremento
 	private Long id;
 	private String nome;
 	private String email;
 	private String tel;
 	private String senha;
 	
-	@JsonIgnore
-	@OneToMany(mappedBy = "cliente")
+	@JsonIgnore // Corrige loop na chamada Json
+	@OneToMany(mappedBy = "cliente") // Estabelece relação entre tabelas do banco de dados relacional. OBS OneToMany nececita de parametro mappedBy
 	List<Pedido> pedido = new ArrayList<>();
 
 	public Usuario() {
