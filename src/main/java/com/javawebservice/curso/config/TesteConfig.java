@@ -9,11 +9,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import com.javawebservice.curso.entidades.Categoria;
+import com.javawebservice.curso.entidades.ItemDoPedido;
 import com.javawebservice.curso.entidades.Pedido;
 import com.javawebservice.curso.entidades.Produto;
 import com.javawebservice.curso.entidades.Usuario;
 import com.javawebservice.curso.entidades.enums.PedidoStatus;
 import com.javawebservice.curso.repositories.CategoriaRepository;
+import com.javawebservice.curso.repositories.ItemDoPedidoRepository;
 import com.javawebservice.curso.repositories.PedidoRepository;
 import com.javawebservice.curso.repositories.ProdutoRepository;
 import com.javawebservice.curso.repositories.UsuarioRepository;
@@ -38,6 +40,9 @@ public class TesteConfig implements CommandLineRunner{
 	
 	@Autowired
 	private ProdutoRepository produtoRepository;
+	
+	@Autowired
+	private ItemDoPedidoRepository itemDoPedidoRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -78,6 +83,13 @@ public class TesteConfig implements CommandLineRunner{
 		usuarioRepository.saveAll(Arrays.asList(usuario1, usuario2));
 		pedidoRepository.saveAll(Arrays.asList(pedido1, pedido2, pedido3));
 		
+		ItemDoPedido item1 = new ItemDoPedido(pedido1, produto1, 2, produto1.getPreco());
+		ItemDoPedido item2 = new ItemDoPedido(pedido1, produto3, 1, produto3.getPreco());
+		ItemDoPedido item3 = new ItemDoPedido(pedido2, produto3, 2, produto3.getPreco());
+		ItemDoPedido item4 = new ItemDoPedido(pedido3, produto5, 5, produto5.getPreco());
+		
+		itemDoPedidoRepository.saveAll(Arrays.asList(item1, item2, item3, item4));
+
 		
 //		Teste de erro: resolvido
 //		Arrays.asList(1, 2, 3, 4, 5).forEach(System.out::print);

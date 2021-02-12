@@ -2,6 +2,8 @@ package com.javawebservice.curso.entidades;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.javawebservice.curso.entidades.enums.PedidoStatus;
@@ -29,6 +32,9 @@ public class Pedido implements Serializable{
 	@ManyToOne // Estabelece relação no banco de dados relacional entre tabelas
 	@JoinColumn(name = "Cliente_id") // Cria um SQL JOIN na tabela da classe
 	private Usuario cliente;
+	
+	@OneToMany(mappedBy = "id.pedido")
+	private Set<ItemDoPedido> itensDoPedido = new HashSet<>(); 
 	
 	public Pedido() {
 	}
@@ -72,6 +78,10 @@ public class Pedido implements Serializable{
 
 	public void setcliente(Usuario cliente) {
 		this.cliente = cliente;
+	}
+	
+	public Set<ItemDoPedido> getItensDoPedido(){
+		return itensDoPedido;
 	}
 
 	@Override
