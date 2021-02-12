@@ -22,7 +22,7 @@ public class Categoria implements Serializable{
 	
 	private String nome;
 	
-//	@Transient // O H2 vai ignorar esta coluna no momento de construir a tabela 
+// 	@Transient    // *O H2 vai ignorar esta coluna no momento de construir a tabela 
 	@JsonIgnore
 	@ManyToMany(mappedBy = "categorias")
 	private Set<Produto> produtos = new HashSet<>();
