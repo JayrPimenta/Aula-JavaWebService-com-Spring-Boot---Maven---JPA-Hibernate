@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Transient;
 
 @Entity
-public class Categoria implements Serializable{
+public class Produto implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -19,17 +19,22 @@ public class Categoria implements Serializable{
 	private Long id;
 	
 	private String nome;
+	private String descricao;
+	private Double preco;
+	private String imgUrl;
 	
-	@Transient // O H2 vai ignorar esta coluna no momento de construir a tabela 
-	private Set<Produto> produtos = new HashSet<>();
+	@Transient
+	private Set<Categoria> categorias = new HashSet<>();
 	
-	
-	public Categoria() {
+	public Produto() {
 	}
 
-	public Categoria(Long id, String nome) {
+	public Produto(Long id, String nome, String descricao, Double preco, String imgUrl) {
 		this.id = id;
 		this.nome = nome;
+		this.descricao = descricao;
+		this.preco = preco;
+		this.imgUrl = imgUrl;
 	}
 
 	public Long getId() {
@@ -47,12 +52,34 @@ public class Categoria implements Serializable{
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
-	public Set<Produto> getProdutos() {
-		return produtos;
+
+	public String getDescricao() {
+		return descricao;
 	}
-	
-	
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public Double getPreco() {
+		return preco;
+	}
+
+	public void setPreco(Double preco) {
+		this.preco = preco;
+	}
+
+	public String getImgUrl() {
+		return imgUrl;
+	}
+
+	public void setImgUrl(String imgUrl) {
+		this.imgUrl = imgUrl;
+	}
+
+	public Set<Categoria> getCategorias() {
+		return categorias;
+	}
 
 	@Override
 	public int hashCode() {
@@ -70,7 +97,7 @@ public class Categoria implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Categoria other = (Categoria) obj;
+		Produto other = (Produto) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -81,11 +108,11 @@ public class Categoria implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Categoria [id=" + id + ", nome=" + nome + "]";
+		return "Produto [id=" + id + ", nome=" + nome + ", descricao=" + descricao + ", preco=" + preco + ", imgUrl="
+				+ imgUrl + ", categorias=" + categorias + "]";
 	}
 	
 	
 	
 	
-
 }

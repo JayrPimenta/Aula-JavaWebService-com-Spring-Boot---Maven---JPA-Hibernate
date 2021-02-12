@@ -10,10 +10,12 @@ import org.springframework.context.annotation.Profile;
 
 import com.javawebservice.curso.entidades.Categoria;
 import com.javawebservice.curso.entidades.Pedido;
+import com.javawebservice.curso.entidades.Produto;
 import com.javawebservice.curso.entidades.Usuario;
 import com.javawebservice.curso.entidades.enums.PedidoStatus;
 import com.javawebservice.curso.repositories.CategoriaRepository;
 import com.javawebservice.curso.repositories.PedidoRepository;
+import com.javawebservice.curso.repositories.ProdutoRepository;
 import com.javawebservice.curso.repositories.UsuarioRepository;
 
 
@@ -33,6 +35,9 @@ public class TesteConfig implements CommandLineRunner{
 	
 	@Autowired
 	private CategoriaRepository categoriaRepository;
+	
+	@Autowired
+	private ProdutoRepository produtoRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -40,6 +45,15 @@ public class TesteConfig implements CommandLineRunner{
 		Categoria categoria1 = new Categoria(null, "Eletronicos");
 		Categoria categoria2 = new Categoria(null, "Livros");
 		Categoria categoria3 = new Categoria(null, "Computadores");
+		
+		Produto produto1 = new Produto(null, "Senhor dos Anes", "Livros capa e espada", 90.0, "");
+		Produto produto2 = new Produto(null, "Smart TV", "43 polegadas", 2100.0, "");
+		Produto produto3 = new Produto(null, "Notebook Asus", "Intel CORE I5 8 Memoria Ram e 1Tb de HD", 1750.0, "");
+		Produto produto4 = new Produto(null, "PC Gamer", "Ryzen 7, 16GB RAM e GTX 3080TI", 6035.45, "");
+		Produto produto5 = new Produto(null, "DRACULA", "O Vampiro mais famoso dos cinemas", 58.0, "");
+		
+		categoriaRepository.saveAll(Arrays.asList(categoria1, categoria2, categoria3));
+		produtoRepository.saveAll(Arrays.asList(produto1, produto2, produto3, produto4, produto5));
 		
 		Usuario usuario1 = new Usuario(null, "Bob", "bob@hotmail.com", "955695656", "1212");
 		Usuario usuario2 = new Usuario(null, "Maria", "maria@uol.com.br", "958317578", "2525");
@@ -50,7 +64,7 @@ public class TesteConfig implements CommandLineRunner{
 		
 		usuarioRepository.saveAll(Arrays.asList(usuario1, usuario2));
 		pedidoRepository.saveAll(Arrays.asList(pedido1, pedido2, pedido3));
-		categoriaRepository.saveAll(Arrays.asList(categoria1, categoria2, categoria3));
+		
 		
 //		Teste de erro: resolvido
 //		Arrays.asList(1, 2, 3, 4, 5).forEach(System.out::print);
