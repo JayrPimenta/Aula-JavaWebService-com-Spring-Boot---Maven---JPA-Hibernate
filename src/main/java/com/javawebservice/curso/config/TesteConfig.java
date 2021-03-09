@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Profile;
 
 import com.javawebservice.curso.entidades.Categoria;
 import com.javawebservice.curso.entidades.ItemDoPedido;
+import com.javawebservice.curso.entidades.Pagamento;
 import com.javawebservice.curso.entidades.Pedido;
 import com.javawebservice.curso.entidades.Produto;
 import com.javawebservice.curso.entidades.Usuario;
@@ -90,6 +91,9 @@ public class TesteConfig implements CommandLineRunner{
 		
 		itemDoPedidoRepository.saveAll(Arrays.asList(item1, item2, item3, item4));
 
+		Pagamento pg1 = new Pagamento(null, Instant.parse("2020-12-23T21:29:12Z"), pedido1);
+		pedido1.setPagamento(pg1);
+		pedidoRepository.save(pedido1);
 		
 //		Teste de erro: resolvido
 //		Arrays.asList(1, 2, 3, 4, 5).forEach(System.out::print);
